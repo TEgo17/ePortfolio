@@ -1,0 +1,73 @@
+$primary-colour: rgb(49, 125, 187);
+$secondary-colour: #250188;
+$show-home-image: true;
+$home-image: url(../img/background.jpg);
+$background-opacity: 0.9;
+
+// method
+@mixin easeOut {
+    transition: all 0.5s ease-out;
+}
+
+@mixin background {
+    @if $show-home-image {
+        &#bg-img {
+            background: $home-image;
+            background-attachment: fixed;
+            background-size: cover;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1; // set picture to the back
+                background: rgpa($primary-colour, $background-opacity);
+            }
+        }  
+    }
+}
+
+// Set Text Colour 
+@function set-text-colour($colour) {
+    @if (lightness($colour) > 40) {
+        @return #000;
+    } @else {
+        @return #fff;
+    }
+}
+
+// Media Query Mixins
+@mixin mediaSm {
+
+    // only applies if 500 pixels or less
+    @media screen and (max-width: 500px) {
+        @content;
+    }
+}
+
+@mixin mediaMd {
+
+    // only applies if 768 pixels or less
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mediaLg {
+
+    // only applies if it is between 768 and 1170
+    @media screen and (min-width: 769px) and (max-width: 1170px) {
+        @content;
+    }
+}
+
+@mixin mediaXl {
+
+    // only applies if 1171 pixels or more
+    @media screen and (min-width: 1171px) {
+        @content;
+    }
+}
